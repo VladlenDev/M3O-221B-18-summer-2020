@@ -135,6 +135,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Counter.cpp" />
+    <ClCompile Include="Intelligence.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Robot.cpp" />
   </ItemGroup>
@@ -142,6 +143,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="Counter.h" />
+    <ClInclude Include="Intelligence.h" />
     <ClInclude Include="Robot.h" />
     <ClInclude Include="windowParam.h" />
   </ItemGroup>

@@ -21,3 +21,31 @@ void Robot::move(clock_t deltaTime, int key)
 			x -= dx;						//	then move left
 	}
 }
+
+void Robot::autoMove(clock_t deltaTime, int tardx, int tardy)
+{
+	int nextX = x;					//	destination
+	int dx = speed*deltaTime;		//	step, movement speed to destination
+
+	//	ask mind for destination
+	mind.whereToGo(tardx, tardy);
+	nextX = mind.getNextX();
+
+	//	if it is possible to move, move
+	if ((nextX + width * 3 / 4) <= WINDOW_WIDTH && (nextX - width * 3 / 4) >= 0)
+	{
+		if (x < nextX)
+		{
+			x += dx;
+		}
+		if (x > nextX)
+		{
+			x -= dx;
+		}
+	}
+}
+
+void Robot::findNewBall()
+{
+	mind.watchNewTarget();
+}

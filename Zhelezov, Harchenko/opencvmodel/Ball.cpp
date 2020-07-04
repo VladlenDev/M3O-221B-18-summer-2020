@@ -9,6 +9,10 @@ Ball::Ball()
 		angleDeg += 80;
 	if (angleDeg > 340 || (angleDeg > 160 && angleDeg <= 180))
 		angleDeg -= 80;
+	if ((angleDeg >= 90 && angleDeg <= 94) ||(angleDeg >= 270 && angleDeg <= 274))
+		angleDeg += 5;
+	if ((angleDeg < 90 && angleDeg >= 86) || (angleDeg < 270 && angleDeg >= 266))
+		angleDeg -= 5;
 
 	angle = angleDeg * PI / 180;		//	transform to angle in radians
 
@@ -26,7 +30,7 @@ void Ball::draw(cv::Mat frame)
 
 void Ball::move(clock_t deltaTime, Robot bot)
 {
-	int dy, dx;		//	shift projections
+	//int dy, dx;		//	shift projections
 	hit = false;	//	ball did not hit robot yet
 
 	//	pre-calculating ball move
@@ -49,7 +53,7 @@ void Ball::move(clock_t deltaTime, Robot bot)
 	}
 
 	//	bounce from robot
-	if ((x + dx) >= (bot.getX() - bot.getWidth()) && (x + dx) <= (bot.getX() + bot.getWidth()) &&
+	if ((x + dx) >= (bot.getX() - bot.getWidth() * 3 / 4) && (x + dx) <= (bot.getX() + bot.getWidth() * 3 / 4) &&
 		(y + dy) >= (bot.getY() - bot.getHeight() / 2) && (y + dy) <= (bot.getY() + bot.getHeight() / 2)) {
 		angle = 2 * PI - angle;
 		dx = shift * cos(angle);

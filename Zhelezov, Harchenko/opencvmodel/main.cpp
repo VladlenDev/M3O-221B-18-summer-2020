@@ -21,16 +21,17 @@ int main()
 {
 	printUsage();
 
-	srand(time(NULL));		//	for new ball trajectory
+	srand(time(NULL));			//	for new ball trajectory
 
-	int key;		//	keyboard key
+	int key;					//	keyboard key
 	float timeBuffer = 0;		//	for time magic
 	clock_t deltaTime = 0;		//	also for time magic
 
 	Robot robot;
 	Ball ball;
 	Box world;
-	Counter hitsCounter("HITS");		//	message with hits counter
+	Counter hitsCounter("HITS", 10, 50);		//	message with hits counter
+	Counter losesCounter("LOSES", 10 + WINDOW_WIDTH/2, 50);		//	message with loses counter
 
 	//	master window matrix
 	Mat frame = Mat::zeros(WINDOW_HEIGHT, WINDOW_WIDTH, CV_8UC3);
@@ -47,22 +48,28 @@ int main()
 		frame = Mat::zeros(WINDOW_HEIGHT, WINDOW_WIDTH, CV_8UC3);
 
 		//	action
-		robot.move(deltaTime, key);
+//		robot.move(deltaTime, key);		//	for control robot from keyboard
 		ball.move(deltaTime, robot);
+		robot.autoMove(deltaTime, ball.getShiftX(), ball.getShiftY());
 
 		//	check for collision
 		if (ball.didHit()) {
 			hitsCounter++;
 		}
 
+		//	check if ball ran away
+		if (!ball.isAlive()) {
+			ball.regenerate();
+			robot.findNewBall();
+			losesCounter++;
+		}
+
 		//	drawing current world state
 		world.draw(frame);
 		ball.draw(frame);
-		if (!ball.isAlive()) {
-			ball.regenerate();
-		}
 		robot.draw(frame);
 		hitsCounter.draw(frame);
+		losesCounter.draw(frame);
 
 		//	show current world state
 		imshow("World model", frame);
@@ -74,11 +81,12 @@ int main()
 	return 0;
 }
 
-void printUsage() {
+void printUsage()
+{
 	cout << "::WORLD::MODEL::" << endl;
 	cout << endl;
 	cout << "Controls:" << endl;
-	cout << "[A] - move left" << endl;
-	cout << "[D] - move right" << endl;
+//	cout << "[A] - move left" << endl;		//	for control robot from keyboard
+//	cout << "[D] - move right" << endl;		//	for control robot from keyboard
 	cout << "[Esc] - exit" << endl;
 }

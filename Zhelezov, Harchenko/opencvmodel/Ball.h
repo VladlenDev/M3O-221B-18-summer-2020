@@ -20,6 +20,7 @@ private:
 	int b, g, r;					//	color
 	float speed = BALL_SPEED;
 	float shift = 0, angle;
+	int dx = 0, dy = 0;
 
 public:
 	Ball();
@@ -30,4 +31,10 @@ public:
 
 	bool didHit()
 	{ return hit; }
+
+	//	getters will be removed when images recognition will be done
+	int getShiftX()
+	{ return dx; }
+	int getShiftY()
+	{ return dy; }
 };

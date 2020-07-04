@@ -1,21 +1,8 @@
-﻿  Ball.cpp
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.h(13,22): warning C4305:  инициализация: усечение из "double" в "float"
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.cpp(34,13): warning C4244:  =: преобразование "float" в "int", возможна потеря данных
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.cpp(35,13): warning C4244:  =: преобразование "float" в "int", возможна потеря данных
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.cpp(40,14): warning C4244:  =: преобразование "float" в "int", возможна потеря данных
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.cpp(41,14): warning C4244:  =: преобразование "float" в "int", возможна потеря данных
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.cpp(47,14): warning C4244:  =: преобразование "float" в "int", возможна потеря данных
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.cpp(48,14): warning C4244:  =: преобразование "float" в "int", возможна потеря данных
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.cpp(55,14): warning C4244:  =: преобразование "float" в "int", возможна потеря данных
-  Box.cpp
-  Counter.cpp
-  Robot.cpp
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.cpp(56,14): warning C4244:  =: преобразование "float" в "int", возможна потеря данных
+﻿  Intelligence.cpp
   main.cpp
-C:\Users\Царь Владислав I\source\repos\opencvmodel\Robot.cpp(11,9): warning C4244:  инициализация: преобразование "float" в "int", возможна потеря данных
 C:\Users\Царь Владислав I\source\repos\opencvmodel\Ball.h(13,22): warning C4305:  инициализация: усечение из "double" в "float"
 C:\Users\Царь Владислав I\source\repos\opencvmodel\main.cpp(24,12): warning C4244:  аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\Царь Владислав I\source\repos\opencvmodel\main.cpp(71,23): warning C4244:  =: преобразование "float" в "clock_t", возможна потеря данных
+C:\Users\Царь Владислав I\source\repos\opencvmodel\main.cpp(78,23): warning C4244:  =: преобразование "float" в "clock_t", возможна потеря данных
   Создание кода...
-C:\Users\Царь Владислав I\source\repos\opencvmodel\main.cpp(72,21): warning C4244:  =: преобразование "clock_t" в "float", возможна потеря данных
+C:\Users\Царь Владислав I\source\repos\opencvmodel\main.cpp(79,21): warning C4244:  =: преобразование "clock_t" в "float", возможна потеря данных
   opencvmodel.vcxproj -> C:\Users\Царь Владислав I\source\repos\opencvmodel\x64\Debug\opencvmodel.exe

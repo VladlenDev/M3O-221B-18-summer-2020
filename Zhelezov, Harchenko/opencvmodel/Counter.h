@@ -4,7 +4,8 @@
 #include "windowParam.h"
 
 //	message with counter to be showed in window
-class Counter {
+class Counter
+{
 private:
 	int counter = 0, font = cv::FONT_HERSHEY_COMPLEX;
 	double fontScale = 2;
@@ -13,7 +14,7 @@ private:
 	cv::Scalar textColor;
 
 public:
-	Counter(const char* name);
+	Counter(const char* name, int xPos, int yPos);
 	void draw(cv::Mat frame);
 	void operator++(int);
 };
