@@ -30,6 +30,12 @@ void Ball::draw(cv::Mat frame)
 
 void Ball::move(clock_t deltaTime, Robot bot)
 {
+	int robotLeft, robotRight, robotTop, robotBottom;
+	robotLeft = bot.getX() - bot.getWidth() * 3 / 4;
+	robotRight = bot.getX() + bot.getWidth() * 3 / 4;
+	robotTop = bot.getY() - bot.getHeight() / 2;
+	robotBottom = bot.getY() + bot.getHeight() / 2;
+
 	//int dy, dx;		//	shift projections
 	hit = false;	//	ball did not hit robot yet
 
@@ -53,9 +59,17 @@ void Ball::move(clock_t deltaTime, Robot bot)
 	}
 
 	//	bounce from robot
-	if ((x + dx) >= (bot.getX() - bot.getWidth() * 3 / 4) && (x + dx) <= (bot.getX() + bot.getWidth() * 3 / 4) &&
-		(y + dy) >= (bot.getY() - bot.getHeight() / 2) && (y + dy) <= (bot.getY() + bot.getHeight() / 2)) {
-		angle = 2 * PI - angle;
+	if ((x + dx) >= robotLeft && (x + dx) <= robotRight && (y + dy) >= robotTop && (y + dy) <= robotBottom)
+	{
+		if (((x + dx) >= robotLeft && x < robotLeft) || ((x + dx) <= robotRight && x > robotRight))
+		{
+			angle = PI - angle;
+		}
+		else
+		{
+			angle = 2 * PI - angle;
+		}
+
 		dx = shift * cos(angle);
 		dy = shift * sin(angle);
 		hit = true;
