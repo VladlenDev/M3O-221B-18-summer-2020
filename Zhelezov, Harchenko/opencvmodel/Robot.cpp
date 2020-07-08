@@ -1,5 +1,11 @@
 #include "Robot.h"
 
+Robot::Robot()
+{
+	cam = ViewFrame(CAMERA_WIDTH, CAMERA_HEIGHT, "CAMERA");
+	ballFinder = Finder(CAMERA_WIDTH, CAMERA_HEIGHT);
+}
+
 void Robot::draw(cv::Mat frame)
 {
 	//	yeah, robot is a line - MISS (Make It Simply Stuped pattern)
@@ -22,30 +28,36 @@ void Robot::move(clock_t deltaTime, int key)
 	}
 }
 
-void Robot::autoMove(clock_t deltaTime, int tardx, int tardy)
+void Robot::autoMove(clock_t deltaTime)
 {
+	int ballDx = 0, ballDy = 0;
 	int nextX = x;					//	destination
 	int dx = speed*deltaTime;		//	step, movement speed to destination
 
+	//	recognize a ball in the frame and get tracking
+	if (ballFinder.LocateCircle(cam.getFrame()))
+	{
+		ballDx = ballFinder.getTargetDx();
+		ballDy = ballFinder.getTargetDy();
+	}
+
 	//	ask mind for destination
-	mind.whereToGo(tardx, tardy);
+	mind.whereToGo(ballDx, ballDy);
 	nextX = mind.getNextX();
 
 	//	if it is possible to move, move
-	if ((nextX + width * 3 / 4) <= WINDOW_WIDTH && (nextX - width * 3 / 4) >= 0)
+	if ((x + dx + width * 3 / 4) <= WINDOW_WIDTH && x < nextX)
 	{
-		if (x < nextX)
-		{
-			x += dx;
-		}
-		if (x > nextX)
-		{
-			x -= dx;
-		}
+		x += dx;
+	}
+	if ((x - dx - width * 3 / 4) >= 0 && x > nextX)
+	{
+		x -= dx;
 	}
 }
 
 void Robot::findNewBall()
 {
 	mind.watchNewTarget();
+	ballFinder = Finder(CAMERA_WIDTH, CAMERA_HEIGHT);
 }

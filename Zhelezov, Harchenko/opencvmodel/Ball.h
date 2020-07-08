@@ -20,21 +20,16 @@ private:
 	int b, g, r;					//	color
 	float speed = BALL_SPEED;
 	float shift = 0, angle;
-	int dx = 0, dy = 0;
+	float deltaRad = 0;
 
 public:
 	Ball();
-	void draw(cv::Mat frame);					//	drawing rules
+	Ball(int param);		//	easter egg
+	void draw(cv::Mat frame, cv::Mat secondaryFrame);		//	drawing rules
 	void move(clock_t deltaTime, Robot bot);	//	moving rules
 	bool isAlive();			//	checks if ball got away
 	void regenerate();		//	respawns ball
 
 	bool didHit()
 	{ return hit; }
-
-	//	getters will be removed when images recognition will be done
-	int getShiftX()
-	{ return dx; }
-	int getShiftY()
-	{ return dy; }
 };

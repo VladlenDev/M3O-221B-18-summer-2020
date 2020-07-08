@@ -6,12 +6,8 @@ void Intelligence::whereToGo(int tardx, int tardy)
 	targetShiftX = tardx;
 	targetShiftY = tardy;
 
-	//	projecting target next position
-	targetNextX = targetPosX + targetShiftX;
-	targetNextY = targetPosY + targetShiftY;
-
 	//	if target moves to bottom set destination to target projecting position, else - to middle
-	if (targetShiftY > 0)
+	if (targetShiftY >= 0)
 	{
 		nextX = targetNextX;
 	}
@@ -19,6 +15,10 @@ void Intelligence::whereToGo(int tardx, int tardy)
 	{
 		nextX = WINDOW_WIDTH / 2;
 	}
+
+	//	projecting target next position
+	targetNextX = targetPosX + targetShiftX;
+	targetNextY = targetPosY + targetShiftY;
 
 	//	saving target next position
 	targetPosX = targetNextX;

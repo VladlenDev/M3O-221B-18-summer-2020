@@ -22,21 +22,48 @@ Ball::Ball()
 	r = rand() % 256;
 }
 
-void Ball::draw(cv::Mat frame)
+Ball::Ball(int param)
+{
+	int angleDeg = rand() % 360;		//	set angle in degrees
+
+	//	stuped check for stuped angle
+	if (angleDeg < 20 || (angleDeg > 180 && angleDeg < 200))
+		angleDeg += 80;
+	if (angleDeg > 340 || (angleDeg > 160 && angleDeg <= 180))
+		angleDeg -= 80;
+	if ((angleDeg >= 90 && angleDeg <= 94) || (angleDeg >= 270 && angleDeg <= 274))
+		angleDeg += 5;
+	if ((angleDeg < 90 && angleDeg >= 86) || (angleDeg < 270 && angleDeg >= 266))
+		angleDeg -= 5;
+
+	angle = angleDeg * PI / 180;		//	transform to angle in radians
+
+	//	set color
+	b = rand() % 256;
+	g = rand() % 256;
+	r = rand() % 256;
+
+	rad = param;
+	speed = 0.2;
+}
+
+void Ball::draw(cv::Mat frame, cv::Mat secondaryFrame)
 {
 	//	yeah, ball is a circle - MISS (Make It Simply Stuped pattern)
 	cv::circle(frame, cv::Point(x, y), rad, cv::Scalar(b, g, r), cv::FILLED);
+	cv::circle(secondaryFrame, cv::Point(x, CAMERA_HEIGHT / 2), (int)(rad + deltaRad), cv::Scalar(b, g, r), cv::FILLED);
 }
 
 void Ball::move(clock_t deltaTime, Robot bot)
 {
+	//	getting robot hitbox
 	int robotLeft, robotRight, robotTop, robotBottom;
 	robotLeft = bot.getX() - bot.getWidth() * 3 / 4;
 	robotRight = bot.getX() + bot.getWidth() * 3 / 4;
 	robotTop = bot.getY() - bot.getHeight() / 2;
 	robotBottom = bot.getY() + bot.getHeight() / 2;
 
-	//int dy, dx;		//	shift projections
+	int dy, dx;		//	shift projections
 	hit = false;	//	ball did not hit robot yet
 
 	//	pre-calculating ball move
@@ -74,6 +101,9 @@ void Ball::move(clock_t deltaTime, Robot bot)
 		dy = shift * sin(angle);
 		hit = true;
 	}
+
+	//	radius distortion in camera's frame
+	deltaRad = y * DISTORTION_FACTOR;
 
 	//	move
 	x += dx;

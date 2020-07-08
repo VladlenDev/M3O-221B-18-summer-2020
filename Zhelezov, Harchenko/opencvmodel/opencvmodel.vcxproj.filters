@@ -33,6 +33,12 @@
     <ClCompile Include="Intelligence.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ViewFrame.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Finder.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Robot.h">
@@ -51,6 +57,12 @@
       <Filter>Исходные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Intelligence.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewFrame.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Finder.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

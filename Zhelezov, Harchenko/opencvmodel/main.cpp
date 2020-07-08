@@ -8,6 +8,9 @@
 #include "Robot.h"
 #include "Ball.h"
 #include "Counter.h"
+#include "ViewFrame.h"
+
+#define CRT_SECURE_NO_WARNINGS
 
 using namespace std;
 using namespace cv;
@@ -32,9 +35,7 @@ int main()
 	Box world;
 	Counter hitsCounter("HITS", 10, 50);		//	message with hits counter
 	Counter losesCounter("LOSES", 10 + WINDOW_WIDTH/2, 50);		//	message with loses counter
-
-	//	master window matrix
-	Mat frame = Mat::zeros(WINDOW_HEIGHT, WINDOW_WIDTH, CV_8UC3);
+	ViewFrame mainWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "World model");		//	master window matrix
 
 	//	main cycle
 	while (true)
@@ -45,16 +46,27 @@ int main()
 			break;
 
 		//	area
-		frame = Mat::zeros(WINDOW_HEIGHT, WINDOW_WIDTH, CV_8UC3);
+		mainWindow.update();
+		robot.updateCam();
 
-		//	action
-//		robot.move(deltaTime, key);		//	for control robot from keyboard
+		//	objects action and drawing current world state
+		world.draw(mainWindow.getFrame());
+
 		ball.move(deltaTime, robot);
-		robot.autoMove(deltaTime, ball.getShiftX(), ball.getShiftY());
+		ball.draw(mainWindow.getFrame(), robot.getCamFrame());
+
+//		robot.move(deltaTime, key);		//	for control robot from keyboard
+		robot.autoMove(deltaTime);
+		robot.draw(mainWindow.getFrame());
+
+		hitsCounter.draw(mainWindow.getFrame());
+		losesCounter.draw(mainWindow.getFrame());
 
 		//	check for collision
 		if (ball.didHit()) {
 			hitsCounter++;
+			if (hitsCounter == 100)		//	easter egg
+				ball = Ball(100);
 		}
 
 		//	check if ball ran away
@@ -64,15 +76,9 @@ int main()
 			losesCounter++;
 		}
 
-		//	drawing current world state
-		world.draw(frame);
-		ball.draw(frame);
-		robot.draw(frame);
-		hitsCounter.draw(frame);
-		losesCounter.draw(frame);
-
 		//	show current world state
-		imshow("World model", frame);
+		mainWindow.show();
+		robot.showCam();
 
 		//	time magic
 		deltaTime = clock() - timeBuffer;

@@ -135,16 +135,20 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="Counter.cpp" />
+    <ClCompile Include="Finder.cpp" />
     <ClCompile Include="Intelligence.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="ViewFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="Counter.h" />
+    <ClInclude Include="Finder.h" />
     <ClInclude Include="Intelligence.h" />
     <ClInclude Include="Robot.h" />
+    <ClInclude Include="ViewFrame.h" />
     <ClInclude Include="windowParam.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

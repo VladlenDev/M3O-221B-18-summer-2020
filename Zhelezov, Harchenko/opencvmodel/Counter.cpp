@@ -24,3 +24,10 @@ void Counter::operator++(int)
 	counter++;
 	countVal = std::to_string(counter);
 }
+
+bool Counter::operator==(int val)
+{
+	if (counter == val)
+		return true;
+	return false;
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <opencv2/opencv.hpp>
+#include <string>
 #include "windowParam.h"
 
 //	message with counter to be showed in window
@@ -17,4 +18,5 @@ public:
 	Counter(const char* name, int xPos, int yPos);
 	void draw(cv::Mat frame);
 	void operator++(int);
+	bool operator==(int val);
 };
